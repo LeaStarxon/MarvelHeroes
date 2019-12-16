@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Marvel Heroes</string>
+    <string name="full_information">Information</string>
+    <string name="nothing_find_hero">Information about hero not found</string>
+    <string name="nothing_find_list">Heroes not found :C\n\nPlease verify that your internet connection is working and try again.</string>
+    <string name="copyright_marvel">Data provided by Marvel. © 2019 MARVEL</string>
+</resources>
