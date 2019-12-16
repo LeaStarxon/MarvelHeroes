@@ -22,6 +22,8 @@ class ApiHelper {
     private val OTHER_ERROR: Int = 1022
     private var client: OkHttpClient? = null
     private val LOGGING_LEVEL: HttpLoggingInterceptor.Level = HttpLoggingInterceptor.Level.BODY
+    private val open_key: String = ""
+    private val close_key: String = ""
     val BASE_URL = "https://gateway.marvel.com/"
 
     fun getFSMClient(): OkHttpClient {
