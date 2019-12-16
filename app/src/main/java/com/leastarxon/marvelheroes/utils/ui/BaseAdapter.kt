@@ -18,7 +18,6 @@ import com.leastarxon.marvelheroes.ui.details.DetailsFragment.Companion.HERO_IMA
 import com.leastarxon.marvelheroes.ui.details.DetailsFragment.Companion.HERO_INFO
 import com.leastarxon.marvelheroes.ui.details.DetailsFragment.Companion.HERO_NAME
 import com.leastarxon.marvelheroes.ui.details.DetailsFragment.Companion.TRANSITION_NAME
-import com.leastarxon.marvelheroes.utils.IUpdatingPosition
 
 class BaseAdapter<T>(
     protected var holderLayout: Int,
@@ -86,7 +85,8 @@ class BaseAdapter<T>(
         return list.size
     }
 
-    inner class BaseClickListener() : IUpdatingPosition {
+    inner class BaseClickListener() :
+        IUpdatingPosition {
         protected var position = 0
         override fun updatePosition(position: Int) {
             this.position = position
@@ -98,9 +98,9 @@ class BaseAdapter<T>(
             bundle.putString(HERO_NAME, hero.name);
             bundle.putString(HERO_INFO, hero.description);
             bundle.putString(HERO_IMAGE_URL, hero.url);
-            var nameTrans = "photoHero" + position
+            val nameTrans = "photoHero" + position
             bundle.putString(TRANSITION_NAME, nameTrans)
-            var detailsFragment = DetailsFragment()
+            val detailsFragment = DetailsFragment()
             detailsFragment.arguments = bundle
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 detailsFragment.sharedElementEnterTransition = AnimationUtil.getTransition()
@@ -108,12 +108,9 @@ class BaseAdapter<T>(
                 detailsFragment.exitTransition = TransitionInflater.from(activity).inflateTransition(android.R.transition.slide_bottom)
                 detailsFragment.sharedElementReturnTransition = AnimationUtil.getTransition()
             }
-
-//            ViewCompat.setTransitionName(activity.findViewById(R.id.photoHero), nameTrans)
-//            ViewCompat.setTransitionName(activity.findViewById(R.id.photoHeroDetails), nameTrans)
-            var view = activity.findViewById(R.id.photoHero) as ImageView
+            val viewHero = activity.findViewById(R.id.photoHero) as ImageView
             activity.supportFragmentManager.beginTransaction()
-                .addSharedElement(view, nameTrans)
+                .addSharedElement(viewHero, nameTrans)
                 .replace(R.id.container, detailsFragment, "detailsFragment")
                 .addToBackStack(null)
                 .commit()

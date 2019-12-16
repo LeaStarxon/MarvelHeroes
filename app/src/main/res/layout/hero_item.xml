@@ -6,7 +6,7 @@
     <data>
         <variable
             name="clickVM"
-            type="com.leastarxon.marvelheroes.utils.IUpdatingPosition" />
+            type="com.leastarxon.marvelheroes.utils.ui.IUpdatingPosition" />
         <variable
             name="hero"
             type="com.leastarxon.marvelheroes.model.Hero" />

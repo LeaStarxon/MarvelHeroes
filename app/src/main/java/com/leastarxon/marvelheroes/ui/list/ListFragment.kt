@@ -45,11 +45,11 @@ class ListFragment : Fragment() {
 
         val boolean = savedInstanceState?.getBoolean(FIRST_TIME)
         firstTime = if (boolean != null) boolean else true
-        var charactersListResponse = savedInstanceState?.getSerializable(HEROES) as? MarvelCharactersListResponse
+        val charactersListResponse = savedInstanceState?.getSerializable(HEROES) as? MarvelCharactersListResponse
         viewModel?.initViews(activity as AppCompatActivity?, firstTime, charactersListResponse)
 
         if (savedInstanceState != null) {
-            var position = savedInstanceState?.getInt(ITEM_POSITION) ?: 0
+            val position = savedInstanceState.getInt(ITEM_POSITION) ?: 0
             viewModel?.goToIndex(position)
         }
         if(firstTime){

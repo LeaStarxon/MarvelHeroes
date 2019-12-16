@@ -1,4 +1,4 @@
-package com.leastarxon.marvelheroes.utils
+package com.leastarxon.marvelheroes.utils.ui
 
 import android.view.View.OnClickListener
 

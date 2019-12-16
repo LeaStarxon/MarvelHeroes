@@ -7,7 +7,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.leastarxon.marvelheroes.BR
 import com.leastarxon.marvelheroes.R
-import com.leastarxon.marvelheroes.utils.IUpdatingPosition
 
 class BaseHolder(v: View, viewtype: Int, clickListener: IUpdatingPosition) : RecyclerView.ViewHolder(v) {
     var binding: ViewDataBinding?

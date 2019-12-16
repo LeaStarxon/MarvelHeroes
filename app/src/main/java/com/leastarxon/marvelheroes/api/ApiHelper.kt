@@ -1,6 +1,5 @@
 package com.leastarxon.marvelheroes.api
 
-import android.util.Log
 import com.google.gson.GsonBuilder
 import com.leastarxon.marvelheroes.model.MarvelCharactersListResponse
 import io.reactivex.Single
@@ -13,13 +12,11 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.math.BigInteger
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.concurrent.TimeUnit
 
 class ApiHelper {
-    private val OTHER_ERROR: Int = 1022
     private var client: OkHttpClient? = null
     private val LOGGING_LEVEL: HttpLoggingInterceptor.Level = HttpLoggingInterceptor.Level.BODY
     private val open_key: String = ""
@@ -53,12 +50,12 @@ class ApiHelper {
 
     fun loadCharactersList(offset: Int): Single<Any> {
         return try {
-            val service = defaultRetrofit()!!.create(IApiHelper::class.java)
+            val service = defaultRetrofit()?.create(IApiHelper::class.java)
             val timeStamp = System.currentTimeMillis().toString()
-            val mD5 = md5(timeStamp)
+            val mD5 = getMD5(timeStamp)
             if (mD5 != null) {
                 val load: Single<Any?>? = Single.create { answer: SingleEmitter<Any?> ->
-                    service.loadHeroes(
+                    service?.loadHeroes(
                         timeStamp,
                         open_key,
                         mD5,
@@ -81,7 +78,7 @@ class ApiHelper {
                                         response = data as? MarvelCharactersListResponse
                                         throwable = if (response?.code == "200") null else {
                                             Throwable(
-                                                response?.code?.toString() ?: "Error from server"
+                                                response?.code ?: "Error from server"
                                             )
                                         }
                                     } catch (ex: Exception) {
@@ -132,19 +129,8 @@ class ApiHelper {
             .observeOn(AndroidSchedulers.mainThread())
     }
 
-    private fun getMD5(string: String): String? {
-        val result = string + close_key+ open_key
-            try {
-            val md = MessageDigest.getInstance("MD5")
-            val padStart =
-                BigInteger(1, md.digest(result.toByteArray())).toString(16).padStart(32, '0')
-            return padStart
-        } catch (e: NoSuchAlgorithmException) {
-            Log.d("MD5.ERROR", e.toString())
-        }
-        return null
-    }
-    fun md5(s: String): String? {
+   
+    fun getMD5(s: String): String? {
         val result = s + close_key+ open_key
         val MD5 = "MD5"
         try { // Create MD5 Hash
